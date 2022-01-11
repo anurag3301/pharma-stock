@@ -1,20 +1,32 @@
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
 import sys
+import random
+from PySide6 import QtCore, QtWidgets, QtGui
 
-class MainWindow(QMainWindow):
-	def __init__(self, *args, **kwargs):
-		super(MainWindow, self).__init__(*args, **kwargs)
-		self.setWindowTitle("My Awsome App")
-		label = QLabel("This IS Awsome!!")
-		label.setAlignment(Qt.AlignCenter)
+class MyWidget(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
 
-		self.setCentralWidget(label)
+        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
 
-app = QApplication(sys.argv)
+        self.button = QtWidgets.QPushButton("Click me!")
+        self.text = QtWidgets.QLabel("Hello World",
+                                     alignment=QtCore.Qt.AlignCenter)
 
-window = MainWindow()
-window.show()
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.button)
 
-app.exec_()
+        self.button.clicked.connect(self.magic)
+
+    @QtCore.Slot()
+    def magic(self):
+        self.text.setText(random.choice(self.hello))
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+
+    widget = MyWidget()
+    widget.resize(800, 600)
+    widget.show()
+
+    sys.exit(app.exec())
