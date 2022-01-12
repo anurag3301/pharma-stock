@@ -11,6 +11,15 @@ class Widget(QWidget):
         self.mainLayout = QHBoxLayout()
         self.leftLayout = QVBoxLayout()
         self.rightLayout = QVBoxLayout()
+
+        self.create_left_layout()
+
+        self.mainLayout.addLayout(self.leftLayout)
+        self.mainLayout.addLayout(self.rightLayout)
+
+        self.setLayout(self.mainLayout)
+
+    def create_left_layout(self):
         self.companies = pharma_data.data
         self.model = QStandardItemModel(len(self.companies), 1)
         self.model.setHorizontalHeaderLabels(['Company'])
@@ -36,11 +45,6 @@ class Widget(QWidget):
         self.table.setModel(self.filter_proxy_model)
         self.leftLayout.addWidget(self.table)
 
-
-        self.mainLayout.addLayout(self.leftLayout)
-        self.mainLayout.addLayout(self.rightLayout)
-
-        self.setLayout(self.mainLayout)
 
 
 class MainWindow(QMainWindow):
