@@ -8,7 +8,9 @@ from PySide6.QtWidgets import (QApplication, QHeaderView, QHBoxLayout, QLabel, Q
 class Widget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
-        mainLayout = QVBoxLayout()
+        mainLayout = QHBoxLayout()
+        leftLayout = QVBoxLayout()
+        rightLayout = QVBoxLayout()
         companies = pharma_data.data
         model = QStandardItemModel(len(companies), 1)
         model.setHorizontalHeaderLabels(['Company'])
@@ -25,16 +27,21 @@ class Widget(QWidget):
         search_field = QLineEdit()          
         search_field.setStyleSheet('font-size: 25px; height: 40px;')
         search_field.textChanged.connect(filter_proxy_model.setFilterRegularExpression)
-        mainLayout.addWidget(search_field)
+        leftLayout.addWidget(search_field)
 
         table = QTableView()
         table.setStyleSheet('font-size: 20px;')
         table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
         table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         table.setModel(filter_proxy_model)
-        mainLayout.addWidget(table)
+        leftLayout.addWidget(table)
+
+
+        mainLayout.addLayout(leftLayout)
+        mainLayout.addLayout(rightLayout)
 
         self.setLayout(mainLayout)
+
 
 class MainWindow(QMainWindow):
     def __init__(self, widget):
