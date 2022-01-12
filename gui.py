@@ -1,21 +1,25 @@
 import sys
-from PySide6.QtCore import Qt, Slot
-from PySide6.QtGui import QAction
-from PySide6.QtWidgets import QApplication, QLabel, QMainWindow
+from PySide6.QtCore import Qt, Slot, QSortFilterProxyModel
+from PySide6.QtGui import QAction, Qt, QStandardItemModel, QStandardItem
+from PySide6.QtWidgets import (QApplication, QHeaderView, QHBoxLayout, QLabel, QLineEdit,
+                               QMainWindow, QPushButton, QTableWidget, QTableWidgetItem,
+                               QVBoxLayout, QWidget)
 
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.setWindowTitle("Tutorial")
+        self.setWindowTitle("Pharma-Stock")
 
+        # menu bar
         self.menu = self.menuBar()
         self.file_menu = self.menu.addMenu("File")
-
         exit_action = QAction("Exit", self)
         exit_action.setShortcut("Ctrl+Q")
         exit_action.triggered.connect(self.exit_app)
-
         self.file_menu.addAction(exit_action)
+
+        # left side
+
 
     @Slot()
     def exit_app(self, checked):
