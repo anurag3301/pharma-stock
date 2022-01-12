@@ -8,39 +8,39 @@ from PySide6.QtWidgets import (QApplication, QHeaderView, QHBoxLayout, QLabel, Q
 class Widget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
-        mainLayout = QHBoxLayout()
-        leftLayout = QVBoxLayout()
-        rightLayout = QVBoxLayout()
-        companies = pharma_data.data
-        model = QStandardItemModel(len(companies), 1)
-        model.setHorizontalHeaderLabels(['Company'])
+        self.mainLayout = QHBoxLayout()
+        self.leftLayout = QVBoxLayout()
+        self.rightLayout = QVBoxLayout()
+        self.companies = pharma_data.data
+        self.model = QStandardItemModel(len(self.companies), 1)
+        self.model.setHorizontalHeaderLabels(['Company'])
 
-        for row, company in enumerate(companies):
+        for row, company in enumerate(self.companies):
             item = QStandardItem(company)
-            model.setItem(row, 0, item)
+            self.model.setItem(row, 0, item)
 
-        filter_proxy_model = QSortFilterProxyModel()
-        filter_proxy_model.setSourceModel(model)
-        filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
-        filter_proxy_model.setFilterKeyColumn(0)
+        self.filter_proxy_model = QSortFilterProxyModel()
+        self.filter_proxy_model.setSourceModel(self.model)
+        self.filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.filter_proxy_model.setFilterKeyColumn(0)
 
-        search_field = QLineEdit()          
-        search_field.setStyleSheet('font-size: 25px; height: 40px;')
-        search_field.textChanged.connect(filter_proxy_model.setFilterRegularExpression)
-        leftLayout.addWidget(search_field)
+        self.search_field = QLineEdit()          
+        self.search_field.setStyleSheet('font-size: 25px; height: 40px;')
+        self.search_field.textChanged.connect(self.filter_proxy_model.setFilterRegularExpression)
+        self.leftLayout.addWidget(self.search_field)
 
-        table = QTableView()
-        table.setStyleSheet('font-size: 20px;')
-        table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        table.setModel(filter_proxy_model)
-        leftLayout.addWidget(table)
+        self.table = QTableView()
+        self.table.setStyleSheet('font-size: 20px;')
+        self.table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.setModel(self.filter_proxy_model)
+        self.leftLayout.addWidget(self.table)
 
 
-        mainLayout.addLayout(leftLayout)
-        mainLayout.addLayout(rightLayout)
+        self.mainLayout.addLayout(self.leftLayout)
+        self.mainLayout.addLayout(self.rightLayout)
 
-        self.setLayout(mainLayout)
+        self.setLayout(self.mainLayout)
 
 
 class MainWindow(QMainWindow):
