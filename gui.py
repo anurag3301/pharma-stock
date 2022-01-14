@@ -43,7 +43,11 @@ class Widget(QWidget):
         self.table.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setModel(self.filter_proxy_model)
+        self.table.clicked.connect(self.tableSelected)
         self.leftLayout.addWidget(self.table)
+
+    def tableSelected(self, selectedElement):
+        print("Currently Selected: ", selectedElement.data())
 
 
 
