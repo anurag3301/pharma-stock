@@ -20,8 +20,8 @@ class Widget(QWidget):
 
         self.create_left_layout()
 
-        self.mainLayout.addLayout(self.leftLayout)
-        self.mainLayout.addLayout(self.rightLayout)
+        self.mainLayout.addLayout(self.leftLayout, 3)
+        self.mainLayout.addLayout(self.rightLayout, 2)
 
         self.setLayout(self.mainLayout)
 
