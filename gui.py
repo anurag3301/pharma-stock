@@ -12,6 +12,12 @@ class Widget(QWidget):
         self.leftLayout = QVBoxLayout()
         self.rightLayout = QVBoxLayout()
 
+        self.medcomLable = QLabel()
+        self.medcomLable.setText("Companie's Name")
+        self.medcomLable.setStyleSheet('font-size: 25px; height: 40px;')
+
+        self.rightLayout.addWidget(self.medcomLable)
+
         self.create_left_layout()
 
         self.mainLayout.addLayout(self.leftLayout)
@@ -48,6 +54,7 @@ class Widget(QWidget):
 
     def tableSelected(self, selectedElement):
         print("Currently Selected: ", selectedElement.data())
+        self.medcomLable.setText(selectedElement.data())
 
 
 
