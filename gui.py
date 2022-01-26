@@ -4,14 +4,13 @@ from PySide6.QtCore import Qt, Slot, QSortFilterProxyModel
 from PySide6.QtGui import QAction, Qt, QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import (QApplication, QHeaderView, QHBoxLayout, QLabel, QLineEdit,
                                QMainWindow, QPushButton, QTableWidget, QTableWidgetItem,
-                               QVBoxLayout, QWidget, QTableView)
+                               QVBoxLayout, QWidget, QTableView, QCheckBox, QBoxLayout)
 class Widget(QWidget):
     def __init__(self):
         QWidget.__init__(self)
         self.mainLayout = QHBoxLayout()
         self.leftLayout = QVBoxLayout()
         self.rightLayout = QVBoxLayout()
-
 
         self.create_left_layout()
         self.create_right_layout()
@@ -26,7 +25,15 @@ class Widget(QWidget):
         self.medcomLable.setText("Companie's Name")
         self.medcomLable.setStyleSheet('font-size: 25px; height: 40px;')
 
-        self.rightLayout.addWidget(self.medcomLable)
+        self.table = QTableWidget(3,2)
+        self.table.setHorizontalHeaderLabels(["Inhand", "Store"])
+        self.table.setVerticalHeaderLabels(["Patta", "Box", "Phyle"])
+
+        self.tempbox = QLabel("Temp Text")
+
+        self.rightLayout.addWidget(self.medcomLable, 5)
+        self.rightLayout.addWidget(self.table, 20)
+        self.rightLayout.addWidget(self.tempbox, 20)
 
 
     def create_left_layout(self):
